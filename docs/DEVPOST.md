@@ -1,16 +1,19 @@
 # Devpost submission draft
 
-> Fill in the bracketed placeholders (team name, hackathon name, links) before
-> submitting. Section headings match Devpost's standard submission form.
+> Fill in the remaining bracketed placeholders (team name, hackathon name,
+> links) before submitting. Section headings match Devpost's standard
+> submission form.
 
 ## Project name
 
-[Project name]
+GuardianMesh
 
 ## Elevator pitch
 
-A safety layer for physical spaces — not a medical diagnostic system, but an
-early-warning system that helps a human responder notice distress sooner.
+Privacy-preserving AI for recognizing human distress. Detect the emergency,
+not the identity: a safety layer for physical spaces — not a medical
+diagnostic system, but an early-warning system that helps a human responder
+notice distress sooner.
 
 ## Inspiration
 
@@ -42,7 +45,9 @@ structured event:
 
 That event is routed to a human responder (console, dashboard, or webhook
 into Slack/paging tools). It never takes action on its own — a person always
-makes the call.
+makes the call. Notice what's *not* in that payload: no face, no name, no
+identity — just a camera ID and scores. GuardianMesh is built to detect the
+emergency, not the identity.
 
 ## How we built it
 
@@ -86,7 +91,7 @@ Precision without recall isn't safety, and recall without precision isn't
 usable — the debouncing/cooldown logic exists because either failure mode
 kills trust in a system like this.
 
-## What's next for [Project name]
+## What's next for GuardianMesh
 
 - Swap the synthetic evaluation dataset for real recorded, labeled test
   footage (see `docs/TEST_VIDEOS.md` for the recording plan).

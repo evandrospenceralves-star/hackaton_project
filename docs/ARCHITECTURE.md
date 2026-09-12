@@ -1,5 +1,8 @@
 # Architecture
 
+GuardianMesh — privacy-preserving AI for recognizing human distress. Detect
+the emergency, not the identity.
+
 ## System diagram
 
 ```mermaid

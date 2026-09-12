@@ -1,4 +1,7 @@
-# Safety Layer
+# GuardianMesh
+
+**Privacy-preserving AI for recognizing human distress.**
+**Detect the emergency. Not the identity.**
 
 > We're building a safety layer for physical spaces — not a medical
 > diagnostic system, but an early-warning system that can help a human
@@ -45,7 +48,7 @@ python3 eval/evaluate.py
 ## Layout
 
 ```
-src/safety_layer/   Core package: Event, Detector, SafetyPipeline, AlertSink
+src/safety_layer/   GuardianMesh core: Event, Detector, SafetyPipeline, AlertSink
 eval/                Evaluation harness + labeled scenario dataset
 tests/               Unit + end-to-end integration tests
 docs/                Mission, architecture, pitch, Devpost draft, test video plan

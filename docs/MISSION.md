@@ -1,5 +1,8 @@
 # Mission
 
+**GuardianMesh** — Privacy-preserving AI for recognizing human distress.
+**Detect the emergency. Not the identity.**
+
 We're building a safety layer for physical spaces — not a medical diagnostic
 system, but an early-warning system that can help a human responder notice
 distress sooner.
@@ -17,10 +20,11 @@ distress sooner.
 - **False alarms have a cost too.** A system that cries wolf gets ignored or
   switched off. We debounce and fuse signal specifically so momentary noise
   (bending down, sitting quickly, brief occlusion) doesn't page anyone.
-- **Privacy is part of the design, not an afterthought.** The safety layer
-  operates on derived scores (fall/immobility/tracking-confidence), not on
-  raw video leaving the room, and camera identity is scoped to a `camera_id`
-  rather than personal identity.
+- **Detect the emergency, not the identity.** The safety layer operates on
+  derived scores (fall/immobility/tracking-confidence), not on raw video or
+  facial identity leaving the room. The event schema carries a `camera_id`,
+  never a person's identity — GuardianMesh doesn't need to know *who* fell to
+  tell a responder *that* someone did.
 
 ## Who this is for
 

@@ -1,5 +1,10 @@
 # Pitch
 
+## Name
+
+**GuardianMesh** — Privacy-preserving AI for recognizing human distress.
+*Detect the emergency. Not the identity.*
+
 ## One-liner
 
 A safety layer for physical spaces that helps a human responder notice
@@ -45,7 +50,9 @@ grow with real recorded test footage, not stay synthetic.
 
 ## Demo script (for the video)
 
-1. Show the mission statement / problem in one sentence.
+1. Open on the name and tagline: "GuardianMesh — privacy-preserving AI for
+   recognizing human distress. Detect the emergency. Not the identity."
+   Then the mission / problem in one sentence.
 2. Show the architecture diagram — camera → vision model → safety layer →
    alert → human. Emphasize: not diagnosing, just noticing sooner.
 3. Live run: `python eval/evaluate.py` — walk through 2-3 scenarios (a real
