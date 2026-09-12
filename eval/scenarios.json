@@ -1,0 +1,110 @@
+{
+  "description": "Synthetic evaluation dataset. Each scenario is a per-frame score sequence standing in for a real labeled video clip, so the detection + eval pipeline can be built and tested before recorded footage exists. See docs/TEST_VIDEOS.md for the plan to replace this with real labeled clips.",
+  "scenarios": [
+    {
+      "name": "clear_fall_living_room",
+      "description": "Person collapses and stays down. Should alert.",
+      "camera_id": "cam_01",
+      "expect_alert": true,
+      "expected_event_type": "possible_fall",
+      "frames": [
+        {"fall_score": 0.30, "immobility_score": 0.20, "tracking_confidence": 0.95},
+        {"fall_score": 0.55, "immobility_score": 0.40, "tracking_confidence": 0.95},
+        {"fall_score": 0.88, "immobility_score": 0.70, "tracking_confidence": 0.93},
+        {"fall_score": 0.91, "immobility_score": 0.86, "tracking_confidence": 0.94},
+        {"fall_score": 0.93, "immobility_score": 0.90, "tracking_confidence": 0.92},
+        {"fall_score": 0.90, "immobility_score": 0.92, "tracking_confidence": 0.90}
+      ]
+    },
+    {
+      "name": "slow_collapse_hallway",
+      "description": "Gradual slump against a wall rather than a sudden fall. Should still alert once sustained.",
+      "camera_id": "cam_03",
+      "expect_alert": true,
+      "expected_event_type": "possible_fall",
+      "frames": [
+        {"fall_score": 0.40, "immobility_score": 0.30, "tracking_confidence": 0.90},
+        {"fall_score": 0.60, "immobility_score": 0.50, "tracking_confidence": 0.90},
+        {"fall_score": 0.72, "immobility_score": 0.65, "tracking_confidence": 0.88},
+        {"fall_score": 0.80, "immobility_score": 0.75, "tracking_confidence": 0.89},
+        {"fall_score": 0.85, "immobility_score": 0.80, "tracking_confidence": 0.87}
+      ]
+    },
+    {
+      "name": "tying_shoe_false_positive_check",
+      "description": "Person bends down briefly then stands back up. Must NOT alert.",
+      "camera_id": "cam_02",
+      "expect_alert": false,
+      "expected_event_type": null,
+      "frames": [
+        {"fall_score": 0.35, "immobility_score": 0.20, "tracking_confidence": 0.96},
+        {"fall_score": 0.75, "immobility_score": 0.30, "tracking_confidence": 0.95},
+        {"fall_score": 0.78, "immobility_score": 0.25, "tracking_confidence": 0.95},
+        {"fall_score": 0.40, "immobility_score": 0.15, "tracking_confidence": 0.96},
+        {"fall_score": 0.20, "immobility_score": 0.10, "tracking_confidence": 0.97}
+      ]
+    },
+    {
+      "name": "sitting_down_quickly_false_positive_check",
+      "description": "Person sits on a couch abruptly -- momentary high fall_score but immobility never sustains. Must NOT alert.",
+      "camera_id": "cam_04",
+      "expect_alert": false,
+      "expected_event_type": null,
+      "frames": [
+        {"fall_score": 0.72, "immobility_score": 0.30, "tracking_confidence": 0.92},
+        {"fall_score": 0.65, "immobility_score": 0.35, "tracking_confidence": 0.92},
+        {"fall_score": 0.30, "immobility_score": 0.20, "tracking_confidence": 0.93}
+      ]
+    },
+    {
+      "name": "occluded_tracking_low_confidence",
+      "description": "Fall-like scores but the subject is partly behind furniture, tanking tracking confidence. Should NOT alert -- flag for human review instead, not a confident auto-alert.",
+      "camera_id": "cam_05",
+      "expect_alert": false,
+      "expected_event_type": null,
+      "frames": [
+        {"fall_score": 0.85, "immobility_score": 0.80, "tracking_confidence": 0.30},
+        {"fall_score": 0.88, "immobility_score": 0.82, "tracking_confidence": 0.35},
+        {"fall_score": 0.90, "immobility_score": 0.85, "tracking_confidence": 0.28}
+      ]
+    },
+    {
+      "name": "prolonged_immobility_on_couch",
+      "description": "Person lying still on a couch (normal resting), low fall_score throughout. Must NOT alert as a fall.",
+      "camera_id": "cam_06",
+      "expect_alert": false,
+      "expected_event_type": null,
+      "frames": [
+        {"fall_score": 0.10, "immobility_score": 0.90, "tracking_confidence": 0.95},
+        {"fall_score": 0.12, "immobility_score": 0.92, "tracking_confidence": 0.94},
+        {"fall_score": 0.08, "immobility_score": 0.93, "tracking_confidence": 0.95}
+      ]
+    },
+    {
+      "name": "second_fall_after_cooldown",
+      "description": "A fall, a recovery gap, then a second unrelated fall later in the clip. Both should alert independently.",
+      "camera_id": "cam_01",
+      "expect_alert": true,
+      "expected_event_type": "possible_fall",
+      "frames": [
+        {"fall_score": 0.90, "immobility_score": 0.85, "tracking_confidence": 0.92},
+        {"fall_score": 0.91, "immobility_score": 0.88, "tracking_confidence": 0.92},
+        {"fall_score": 0.92, "immobility_score": 0.90, "tracking_confidence": 0.91},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.10, "immobility_score": 0.10, "tracking_confidence": 0.95},
+        {"fall_score": 0.88, "immobility_score": 0.86, "tracking_confidence": 0.90},
+        {"fall_score": 0.89, "immobility_score": 0.87, "tracking_confidence": 0.90},
+        {"fall_score": 0.90, "immobility_score": 0.88, "tracking_confidence": 0.91}
+      ]
+    }
+  ]
+}
