@@ -62,7 +62,7 @@ def test_cooldown_prevents_immediate_re_alert_but_allows_it_later():
         idx += 1
         return event
 
-    first = push(0.9, 0.85)
+    push(0.9, 0.85)
     second = push(0.9, 0.85)
     assert second is not None  # first alert
 

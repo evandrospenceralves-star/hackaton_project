@@ -41,13 +41,24 @@ class Event:
         if not self.camera_id:
             raise ValueError("camera_id must be a non-empty string")
 
+        if not isinstance(self.event_type, EventType):
+            raise ValueError(
+                f"event_type must be an EventType member, got {self.event_type!r} "
+                f"(pass EventType(...) or use Event.from_dict for raw wire-format strings)"
+            )
+
         for field in _SCORE_FIELDS:
             value = getattr(self, field)
-            if not isinstance(value, (int, float)):
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
                 raise ValueError(f"{field} must be numeric, got {type(value)!r}")
             if not 0.0 <= value <= 1.0:
                 raise ValueError(f"{field} must be within [0.0, 1.0], got {value}")
 
+        if not isinstance(self.timestamp, datetime):
+            raise ValueError(
+                f"timestamp must be a datetime, got {type(self.timestamp)!r} "
+                f"(pass a datetime or use Event.from_dict for raw wire-format strings)"
+            )
         if self.timestamp.tzinfo is None:
             raise ValueError(
                 "timestamp must be timezone-aware (e.g. include a UTC offset)"
@@ -59,3 +70,13 @@ class Event:
         data["event_type"] = self.event_type.value
         data["timestamp"] = self.timestamp.isoformat()
         return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Event":
+        """Parse the wire format (e.g. json.loads of the documented payload)
+        back into an Event, the inverse of to_dict()."""
+        payload = dict(data)
+        payload["event_type"] = EventType(payload["event_type"])
+        if isinstance(payload["timestamp"], str):
+            payload["timestamp"] = datetime.fromisoformat(payload["timestamp"])
+        return cls(**payload)

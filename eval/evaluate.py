@@ -19,11 +19,11 @@ from typing import List, Optional
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from safety_layer.detector import MockFallDetector
-from safety_layer.pipeline import SafetyPipeline
-from safety_layer.alerting import InMemoryAlertSink
+from safety_layer.detector import MockFallDetector  # noqa: E402
+from safety_layer.pipeline import SafetyPipeline  # noqa: E402
+from safety_layer.alerting import InMemoryAlertSink  # noqa: E402
 
-from dataset import ScenarioCase, DEFAULT_MANIFEST
+from dataset import ScenarioCase, DEFAULT_MANIFEST  # noqa: E402
 
 
 @dataclass
@@ -65,9 +65,17 @@ def summarize(results: List[ScenarioResult]) -> dict:
     precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) else 1.0
     recall = true_positives / (true_positives + false_negatives) if (true_positives + false_negatives) else 1.0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0.0
-    false_positive_rate = false_positives / (false_positives + true_negatives) if (false_positives + true_negatives) else 0.0
+    false_positive_rate = (
+        false_positives / (false_positives + true_negatives)
+        if (false_positives + true_negatives)
+        else 0.0
+    )
 
-    latencies = [r.detection_latency_frames for r in results if r.expect_alert and r.got_alert]
+    latencies = [
+        r.detection_latency_frames
+        for r in results
+        if r.expect_alert and r.got_alert and r.detection_latency_frames is not None
+    ]
     avg_latency = sum(latencies) / len(latencies) if latencies else None
 
     return {

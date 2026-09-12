@@ -38,6 +38,8 @@ class WebhookAlertSink:
     dependency to install at 2am before the deadline."""
 
     def __init__(self, url: str, timeout_seconds: float = 5.0) -> None:
+        if not url.startswith(("http://", "https://")):
+            raise ValueError(f"webhook url must be http(s), got {url!r}")
         self.url = url
         self.timeout_seconds = timeout_seconds
 
@@ -50,6 +52,7 @@ class WebhookAlertSink:
             method="POST",
         )
         try:
-            urllib.request.urlopen(request, timeout=self.timeout_seconds)
+            with urllib.request.urlopen(request, timeout=self.timeout_seconds):
+                pass
         except urllib.error.URLError as exc:
             raise RuntimeError(f"failed to deliver alert to {self.url}: {exc}") from exc

@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "eval"))
 
-from evaluate import run_evaluation
+from evaluate import run_evaluation  # noqa: E402
 
 
 def test_evaluation_report_shape():
